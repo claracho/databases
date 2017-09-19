@@ -4,9 +4,9 @@ module.exports = {
   messages: {
     // a function which handles a get request for all messages
     get: function (req, res) {
+      // can obtain query values by req.query
       models.messages.get(req.body, (err, data) => {
         if (err) { throw err; }
-        console.log(JSON.stringify({ results: data }));
         res.header('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
         res.header('access-control-allow-origin', '*');
         res.header('access-control-allow-headers', 'content-type, accept');
@@ -18,8 +18,6 @@ module.exports = {
     },
     // a function which handles posting a message to the database
     post: function (req, res) {
-      console.log('post', req.body);
-      console.log('post', req.query);
       models.messages.post(req.body, (err, data) => {
         if (err) { throw err; }
         res.send(data);
@@ -27,7 +25,6 @@ module.exports = {
     },
     // a function which handles OPTIONS method
     options: function (req, res) {
-      // can obtain query values by req.query()
       res.header('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
       res.header('access-control-allow-origin', '*');
       res.header('access-control-allow-headers', 'content-type, accept');
@@ -37,7 +34,6 @@ module.exports = {
   },
 
   users: {
-    // Ditto as above
     get: function (req, res) {
       models.users.get(req.body, (err, data) => {
         if (err) { throw err; }
