@@ -6,11 +6,20 @@ module.exports = {
     get: function (req, res) {
       models.messages.get(req.body, (err, data) => {
         if (err) { throw err; }
-        res.send(data);
+        console.log(JSON.stringify({ results: data }));
+        res.header('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.header('access-control-allow-origin', '*');
+        res.header('access-control-allow-headers', 'content-type, accept');
+        res.header('access-control-max-age', 10);
+        res.header('Content-Type', 'application/json');
+        res.header('Last-Modified', (new Date()).toUTCString());
+        res.json({results: data});
       });
     },
     // a function which handles posting a message to the database
     post: function (req, res) {
+      console.log('post', req.body);
+      console.log('post', req.query);
       models.messages.post(req.body, (err, data) => {
         if (err) { throw err; }
         res.send(data);
@@ -19,8 +28,10 @@ module.exports = {
     // a function which handles OPTIONS method
     options: function (req, res) {
       // can obtain query values by req.query()
-      res.set('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
-      res.set('Content-Type', 'application/json');
+      res.header('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
+      res.header('access-control-allow-origin', '*');
+      res.header('access-control-allow-headers', 'content-type, accept');
+      res.header('access-control-max-age', 10);
       res.sendStatus(200);
     }
   },

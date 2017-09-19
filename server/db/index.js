@@ -7,7 +7,7 @@ var mysql = require('mysql');
 var queryDatabase = (queryString, params, callback) => {
   var connection = mysql.createConnection({
     user: 'root',
-    password: '',
+    password: 'plantlife',
     database: 'chat',
     multipleStatements: true
   });
