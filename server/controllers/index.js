@@ -21,11 +21,16 @@ module.exports = {
   users: {
     // Ditto as above
     get: function (req, res) {
-      
+      models.users.get(req.body, (err, data) => {
+        if (err) { throw err; }
+        res.send(data);
+      });
     },
     post: function (req, res) {
-      models.users.post(req.body);
-      res.send();
+      models.users.post(req.body, (err, data) => {
+        if (err) { throw err; }
+        res.send(data);
+      });
     }
   }
 };
