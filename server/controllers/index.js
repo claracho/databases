@@ -15,6 +15,13 @@ module.exports = {
         if (err) { throw err; }
         res.send(data);
       });
+    },
+    // a function which handles OPTIONS method
+    options: function (req, res) {
+      // can obtain query values by req.query()
+      res.set('access-control-allow-methods', 'GET, POST, PUT, DELETE, OPTIONS');
+      res.set('Content-Type', 'application/json');
+      res.sendStatus(200);
     }
   },
 
